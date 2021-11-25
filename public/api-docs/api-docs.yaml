@@ -1,0 +1,437 @@
+openapi: 3.0.0
+info:
+  title: 'Admin Documentation'
+  description: 'Admin OpenApi description'
+  contact:
+    email: antonio@gmail.com
+  version: 1.0.0
+servers:
+  -
+    url: 'http://127.0.0.1:8000\api'
+    description: 'Admin API Server'
+paths:
+  /login:
+    post:
+      tags:
+        - Public
+      operationId: 2dd578ff7aba2721293dac66833b27d1
+      responses:
+        200:
+          description: Login
+  /register:
+    post:
+      tags:
+        - Public
+      operationId: 0903f2e0df1a8857bee538fc055417f0
+      responses:
+        200:
+          description: Register
+  /upload:
+    post:
+      tags:
+        - Images
+      operationId: 974d3bcaddf706a4317093f84fadb400
+      responses:
+        200:
+          description: 'Upload Images'
+      security:
+        -
+          bearerAuth: []
+  /orders:
+    get:
+      tags:
+        - Orders
+      operationId: 325fd3d55bbe9bb39645269928fa4983
+      responses:
+        200:
+          description: 'Order Collection'
+      security:
+        -
+          bearerAuth: []
+  '/orders/{id}':
+    get:
+      tags:
+        - Orders
+      operationId: f088d34a2737782215f435f854e31de5
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Order ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: User
+      security:
+        -
+          bearerAuth: []
+  /export:
+    get:
+      tags:
+        - Orders
+      operationId: 1c0659098bee77bfbc69bd104c75abe1
+      responses:
+        200:
+          description: 'Order Export'
+      security:
+        -
+          bearerAuth: []
+  /products:
+    get:
+      tags:
+        - Products
+      operationId: c1ff6f862214e1896c59cfe0491ce0e8
+      responses:
+        200:
+          description: 'Product Collection'
+      security:
+        -
+          bearerAuth: []
+    post:
+      tags:
+        - Products
+      operationId: 399770d33fa4672f1216707d0e236763
+      responses:
+        201:
+          description: 'Product Create'
+      security:
+        -
+          bearerAuth: []
+  '/products/{id}':
+    get:
+      tags:
+        - Products
+      operationId: b46f4aa73232d0368eee698a082342a4
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Product ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: User
+      security:
+        -
+          bearerAuth: []
+    put:
+      tags:
+        - Products
+      operationId: 1419d479f9340e30e67fe21a2ca525b7
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Product ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        202:
+          description: 'Product Update'
+      security:
+        -
+          bearerAuth: []
+    delete:
+      tags:
+        - Products
+      operationId: fe34b364a3f192305598b65d04d06b5d
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Product ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: 'Product Delete'
+      security:
+        -
+          bearerAuth: []
+  /roles:
+    get:
+      tags:
+        - Roles
+      operationId: 6e28bdec08d7292bde33180ca5928718
+      responses:
+        200:
+          description: 'Role Collection'
+      security:
+        -
+          bearerAuth: []
+    post:
+      tags:
+        - Roles
+      operationId: b47f38c8385567ad7a473d82fb6ebf63
+      responses:
+        201:
+          description: 'Role Create'
+      security:
+        -
+          bearerAuth: []
+  '/roles/{id}':
+    get:
+      tags:
+        - Roles
+      operationId: a4b5c5aa1ac224a279b2060bab05733c
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Role ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: User
+      security:
+        -
+          bearerAuth: []
+    put:
+      tags:
+        - Roles
+      operationId: e8c67c50f2f7ea7a8a12c812fc3ef2a4
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Role ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        202:
+          description: 'Role Update'
+      security:
+        -
+          bearerAuth: []
+    delete:
+      tags:
+        - Roles
+      operationId: f5117dc2943b621bdb53820fcc72b457
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Role ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: 'Role Delete'
+      security:
+        -
+          bearerAuth: []
+  /users:
+    get:
+      tags:
+        - Users
+      operationId: 7e2f5799553ec93c9c43e2a58490d447
+      parameters:
+        -
+          name: page
+          in: query
+          description: 'Pagination page'
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'User Collection'
+      security:
+        -
+          bearerAuth: []
+    post:
+      tags:
+        - Users
+      operationId: a1fce870c566eb5fc0cf3178ec5d2fed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+      responses:
+        201:
+          description: 'User Create'
+      security:
+        -
+          bearerAuth: []
+  '/users/{id}':
+    get:
+      tags:
+        - Users
+      operationId: 910a0c7cf580e1c605648d82a4e57f46
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'User ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: User
+      security:
+        -
+          bearerAuth: []
+    put:
+      tags:
+        - Users
+      operationId: ddfe232db1870b82493bf8bd25596d37
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'User ID'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        202:
+          description: 'User Update'
+      security:
+        -
+          bearerAuth: []
+    delete:
+      tags:
+        - Users
+      operationId: 43dd20becb1f47444e484cbb18ce345c
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'User ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: 'User Delete'
+      security:
+        -
+          bearerAuth: []
+  /user:
+    get:
+      tags:
+        - Profile
+      operationId: e351648aebb146847ec4190628eabbf4
+      responses:
+        200:
+          description: 'Authenticated User'
+      security:
+        -
+          bearerAuth: []
+  /users/info:
+    put:
+      tags:
+        - Profile
+      operationId: f2af1c2554ee72ba65b7dfa8fccacd13
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInfoRequest'
+      responses:
+        202:
+          description: 'User Info Update'
+      security:
+        -
+          bearerAuth: []
+  /users/password:
+    put:
+      tags:
+        - Profile
+      operationId: 34e093df10270da0e999d0bd07f70995
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordRequest'
+      responses:
+        202:
+          description: 'User Password Update'
+      security:
+        -
+          bearerAuth: []
+components:
+  schemas:
+    UpdateInfoRequest:
+      title: 'Update User Info request'
+      description: 'Update User Info request body data'
+      properties:
+        first_name:
+          title: first_name
+          type: string
+        last_name:
+          title: last_name
+          type: string
+        email:
+          title: email
+          type: string
+      type: object
+    UpdatePasswordRequest:
+      title: 'Update User Password request'
+      description: 'Update User Password request body data'
+      properties:
+        password:
+          title: password
+          type: string
+        password_confirm:
+          title: password_confirm
+          type: string
+      type: object
+    UserCreateRequest:
+      title: 'Store User request'
+      description: 'Store User request body data'
+      properties:
+        first_name:
+          title: first_name
+          type: string
+        last_name:
+          title: last_name
+          type: string
+        email:
+          title: email
+          type: string
+        role_id:
+          title: role_id
+          type: integer
+      type: object
+    UserUpdateRequest:
+      title: 'Update User request'
+      description: 'Update User request body data'
+      properties:
+        first_name:
+          title: first_name
+          type: string
+        last_name:
+          title: last_name
+          type: string
+        email:
+          title: email
+          type: string
+        role_id:
+          title: role_id
+          type: integer
+      type: object
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
