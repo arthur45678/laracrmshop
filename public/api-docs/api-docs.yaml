@@ -1,23 +1,8 @@
 openapi: 3.0.0
 info:
-  title: 'Admin Documentation'
-  description: 'Admin OpenApi description'
-  contact:
-    email: antonio@gmail.com
+  title: 'Your super  ApplicationAPI'
   version: 1.0.0
-servers:
-  -
-    url: 'http://127.0.0.1:8000\api'
-    description: 'Admin API Server'
 paths:
-  /login:
-    post:
-      tags:
-        - Public
-      operationId: 2dd578ff7aba2721293dac66833b27d1
-      responses:
-        200:
-          description: Login
   /register:
     post:
       tags:
@@ -26,33 +11,102 @@ paths:
       responses:
         200:
           description: Register
-  /upload:
+  /api/login:
+    post:
+      tags:
+        - Public
+      operationId: a3b306d14572d1f4bd6c064b3233e7b8
+      responses:
+        200:
+          description: Login
+  /api/user:
+    get:
+      tags:
+        - Profile
+      operationId: 7c1cf647d76fad4b3eb1549fa4fe2f4c
+      responses:
+        200:
+          description: 'Authenticated User'
+      security:
+        -
+          bearerAuth: []
+  /api/users/info:
+    put:
+      tags:
+        - Profile
+      operationId: e227b7bf0bec38119981105a4bcd69c9
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInfoRequest'
+      responses:
+        202:
+          description: 'User Info Update'
+      security:
+        -
+          bearerAuth: []
+  /api/users/password:
+    put:
+      tags:
+        - Profile
+      operationId: ec53910026da9dca04160dfce15970c3
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordRequest'
+      responses:
+        202:
+          description: 'User Password Update'
+      security:
+        -
+          bearerAuth: []
+  /:
+    get:
+      description: 'Home page'
+      responses:
+        default:
+          description: 'Welcome page'
+  /api/upload:
     post:
       tags:
         - Images
-      operationId: 974d3bcaddf706a4317093f84fadb400
+      operationId: c6db3bf2f030e203a14a73b4271ad632
       responses:
         200:
           description: 'Upload Images'
       security:
         -
           bearerAuth: []
-  /orders:
+  /api/orders:
     get:
       tags:
         - Orders
-      operationId: 325fd3d55bbe9bb39645269928fa4983
+      operationId: 2cd7e03021e72d9d799c12dfe179c865
       responses:
         200:
           description: 'Order Collection'
       security:
         -
           bearerAuth: []
-  '/orders/{id}':
+    post:
+      tags:
+        - Orders
+      operationId: d690d6834318e9b064df441e854de8b9
+      responses:
+        201:
+          description: 'Order Create'
+      security:
+        -
+          bearerAuth: []
+  '/api/orders/{id}':
     get:
       tags:
         - Orders
-      operationId: f088d34a2737782215f435f854e31de5
+      operationId: c29621029e70f65247909d3e09031118
       parameters:
         -
           name: id
@@ -67,22 +121,33 @@ paths:
       security:
         -
           bearerAuth: []
-  /export:
+  /api/storeOrderProduct:
+    post:
+      tags:
+        - Orders
+      operationId: 5488de5d55e03b29039a5bd879a503f8
+      responses:
+        201:
+          description: 'Order Product Create'
+      security:
+        -
+          bearerAuth: []
+  /api/export:
     get:
       tags:
         - Orders
-      operationId: 1c0659098bee77bfbc69bd104c75abe1
+      operationId: 5c9f756c8e31925f3b2bb809ab1e2577
       responses:
         200:
           description: 'Order Export'
       security:
         -
           bearerAuth: []
-  /products:
+  /api/products:
     get:
       tags:
         - Products
-      operationId: c1ff6f862214e1896c59cfe0491ce0e8
+      operationId: 1bfaa78d1c2c3848ab8165c5dadcad3e
       responses:
         200:
           description: 'Product Collection'
@@ -92,18 +157,18 @@ paths:
     post:
       tags:
         - Products
-      operationId: 399770d33fa4672f1216707d0e236763
+      operationId: e8185e307706e2cd84bbcf5171e2f09d
       responses:
         201:
           description: 'Product Create'
       security:
         -
           bearerAuth: []
-  '/products/{id}':
+  '/api/products/{id}':
     get:
       tags:
         - Products
-      operationId: b46f4aa73232d0368eee698a082342a4
+      operationId: 7ab21ddb713501f3d4c2914892c02a21
       parameters:
         -
           name: id
@@ -121,7 +186,7 @@ paths:
     put:
       tags:
         - Products
-      operationId: 1419d479f9340e30e67fe21a2ca525b7
+      operationId: 6a7e11900844cd85cff66e662b82bd4c
       parameters:
         -
           name: id
@@ -139,7 +204,7 @@ paths:
     delete:
       tags:
         - Products
-      operationId: fe34b364a3f192305598b65d04d06b5d
+      operationId: e80a6ca46716acee6b47ea1ac91663c0
       parameters:
         -
           name: id
@@ -154,11 +219,11 @@ paths:
       security:
         -
           bearerAuth: []
-  /roles:
+  /api/roles:
     get:
       tags:
         - Roles
-      operationId: 6e28bdec08d7292bde33180ca5928718
+      operationId: 77e3636d8592997ce9d6d27b50857a69
       responses:
         200:
           description: 'Role Collection'
@@ -168,18 +233,18 @@ paths:
     post:
       tags:
         - Roles
-      operationId: b47f38c8385567ad7a473d82fb6ebf63
+      operationId: 4a563842fbfcad237f63da43065fca3d
       responses:
         201:
           description: 'Role Create'
       security:
         -
           bearerAuth: []
-  '/roles/{id}':
+  '/api/roles/{id}':
     get:
       tags:
         - Roles
-      operationId: a4b5c5aa1ac224a279b2060bab05733c
+      operationId: 7fb0667a295b7678a30353aa11739683
       parameters:
         -
           name: id
@@ -197,7 +262,7 @@ paths:
     put:
       tags:
         - Roles
-      operationId: e8c67c50f2f7ea7a8a12c812fc3ef2a4
+      operationId: 786d6990093a8eb3a56931f19a827e43
       parameters:
         -
           name: id
@@ -215,7 +280,7 @@ paths:
     delete:
       tags:
         - Roles
-      operationId: f5117dc2943b621bdb53820fcc72b457
+      operationId: 8285c46981c60ad600aa4077307aec04
       parameters:
         -
           name: id
@@ -230,11 +295,11 @@ paths:
       security:
         -
           bearerAuth: []
-  /users:
+  /api/users:
     get:
       tags:
         - Users
-      operationId: 7e2f5799553ec93c9c43e2a58490d447
+      operationId: c457726701591d1183b53aa71fc13441
       parameters:
         -
           name: page
@@ -251,7 +316,7 @@ paths:
     post:
       tags:
         - Users
-      operationId: a1fce870c566eb5fc0cf3178ec5d2fed
+      operationId: 592819a0265360b2014512d6dbfaf0e7
       requestBody:
         required: true
         content:
@@ -264,11 +329,11 @@ paths:
       security:
         -
           bearerAuth: []
-  '/users/{id}':
+  '/api/users/{id}':
     get:
       tags:
         - Users
-      operationId: 910a0c7cf580e1c605648d82a4e57f46
+      operationId: 36a33ff774d5cba33c039dec2c3e0287
       parameters:
         -
           name: id
@@ -286,7 +351,7 @@ paths:
     put:
       tags:
         - Users
-      operationId: ddfe232db1870b82493bf8bd25596d37
+      operationId: b9091397c8b25f12c6adb74be6ce3a5a
       parameters:
         -
           name: id
@@ -310,7 +375,7 @@ paths:
     delete:
       tags:
         - Users
-      operationId: 43dd20becb1f47444e484cbb18ce345c
+      operationId: fa56cffde745d3f152f95cbacd936c0b
       parameters:
         -
           name: id
@@ -322,51 +387,6 @@ paths:
       responses:
         204:
           description: 'User Delete'
-      security:
-        -
-          bearerAuth: []
-  /user:
-    get:
-      tags:
-        - Profile
-      operationId: e351648aebb146847ec4190628eabbf4
-      responses:
-        200:
-          description: 'Authenticated User'
-      security:
-        -
-          bearerAuth: []
-  /users/info:
-    put:
-      tags:
-        - Profile
-      operationId: f2af1c2554ee72ba65b7dfa8fccacd13
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateInfoRequest'
-      responses:
-        202:
-          description: 'User Info Update'
-      security:
-        -
-          bearerAuth: []
-  /users/password:
-    put:
-      tags:
-        - Profile
-      operationId: 34e093df10270da0e999d0bd07f70995
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdatePasswordRequest'
-      responses:
-        202:
-          description: 'User Password Update'
       security:
         -
           bearerAuth: []
@@ -435,3 +455,5 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
+security:
+  - []

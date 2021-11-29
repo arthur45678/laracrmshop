@@ -3,19 +3,22 @@
 namespace App\Repository\Eloquent;
 
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Repository\OrdersRepositoryInterface;
 use Illuminate\Support\Collection;
 
 class OrdersRepository extends BaseRepository implements  OrdersRepositoryInterface
 {
+    protected $orderItem;
     /**
      * UserRepository constructor.
      *
      * @param Order $model
      */
-    public function __construct(Order $model)
+    public function __construct(Order $model, OrderItem $orderItem)
     {
         parent::__construct($model);
+        $this->orderItem = $orderItem;
     }
 
     /**
@@ -25,6 +28,26 @@ class OrdersRepository extends BaseRepository implements  OrdersRepositoryInterf
 
         return $this->model->with('orderItems')->paginate();
     }
+
+    /**
+     * @param array $data
+     * @return object
+     */
+    public function store(array $data): object
+    {
+        return $this->model->create($data);
+    }
+
+    /**
+     * @param array $data
+     * @return object
+     */
+    public function storeOrderProduct(array $data) : object
+    {
+        return $this->orderItem->create($data);
+    }
+
+
 
     /**
      * @param $id
@@ -60,9 +83,7 @@ class OrdersRepository extends BaseRepository implements  OrdersRepositoryInterf
             foreach ($orders as $order) {
                 fputcsv($file, [$order->id, $order->name, $order->email, '', '', '']);
 
-                foreach ($order->orderItems as $orderItem) {
-                    fputcsv($file, ['', '', '', $orderItem->product_title, $orderItem->price, $orderItem->quantity]);
-                }
+
             }
 
             fclose($file);

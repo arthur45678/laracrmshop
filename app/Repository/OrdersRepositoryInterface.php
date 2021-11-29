@@ -16,7 +16,17 @@ interface OrdersRepositoryInterface
      */
     public function show($id): object;
 
+    /**
+     * @param array $data
+     * @return object
+     */
+    public function store(array $data) : object;
 
+    /**
+     * @param array $data
+     * @return object
+     */
+    public function storeOrderProduct(array $data) : object;
     /**
      * @return mixed
      */

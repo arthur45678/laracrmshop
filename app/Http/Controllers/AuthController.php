@@ -23,6 +23,15 @@ class AuthController extends Controller
         $this->registerRepository = $registerRepository;
     }
 
+    /**
+     * @OA\Post(
+     *   path="/register",
+     *   tags={"Public"},
+     *   @OA\Response(response="200",
+     *     description="Register",
+     *   )
+     * )
+     */
     public function register(RegisterRequest $request)
     {
         $input = $request->all();
@@ -31,14 +40,31 @@ class AuthController extends Controller
         return response(new UserResource($data), Response::HTTP_CREATED);
     }
 
+    /**
+     * @OA\Post(
+     *   path="/api/login",
+     *   tags={"Public"},
+     *   @OA\Response(response="200",
+     *     description="Login",
+     *   )
+     * )
+     */
     public function login(Request $request)
     {
-
-        $input = $request->all();
+        $input = $request->only('email', 'password');
         $data = $this->registerRepository->login($input);
         return $data;
     }
 
+    /**
+     * @OA\Get(path="/api/user",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Profile"},
+     *   @OA\Response(response="200",
+     *     description="Authenticated User",
+     *   )
+     * )
+     */
     public function user(Request $request)
     {
         $user = $request->user();
@@ -55,6 +81,21 @@ class AuthController extends Controller
         ])->withCookie($cookie);
     }
 
+    /**
+     * @OA\Put(
+     *   path="/api/users/info",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Profile"},
+     *   @OA\Response(response="202",
+     *     description="User Info Update",
+     *   ),
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\JsonContent(ref="#/components/schemas/UpdateInfoRequest")
+     *   )
+     * )
+     */
+
     public function updateInfo(UpdateInfoRequest $request)
     {
         $input = $request->only('first_name', 'last_name', 'email');
@@ -63,6 +104,20 @@ class AuthController extends Controller
         return \response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 
+    /**
+     * @OA\Put(
+     *   path="/api/users/password",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Profile"},
+     *   @OA\Response(response="202",
+     *     description="User Password Update",
+     *   ),
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\JsonContent(ref="#/components/schemas/UpdatePasswordRequest")
+     *   )
+     * )
+     */
     public function updatePassword(UpdatePasswordRequest $request)
     {
         $user = $request->user();

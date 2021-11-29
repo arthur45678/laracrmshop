@@ -23,6 +23,6 @@ interface BaseRepositoryInterface
      */
     public function find($id): ?Model;
 
-    public function upload($file): object;
+
 
 }

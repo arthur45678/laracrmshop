@@ -4,12 +4,22 @@ namespace App\Repository\Eloquent;
 
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\UserResource;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use App\Repository\CheckoutRepositoryInterface;
 
 class CheckoutRepository extends  BaseRepository implements CheckoutRepositoryInterface
 {
+    /**
+     * UserRepository constructor.
+     *
+     * @param Order $model
+     */
+    public function __construct(Order $model)
+    {
+        parent::__construct($model);
+    }
 
     /**
      * @return object

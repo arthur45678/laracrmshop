@@ -4,23 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ImageUploadRequest;
 use App\Repository\BaseRepositoryInterface;
+use App\Repository\ImageRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class ImageController extends Controller
 {
-    protected $repository;
 
-    public function __construct(BaseRepositoryInterface $repository)
-    {
-        $this->repository = $repository;
-    }
 
+    /**
+     * @OA\Post(
+     *   path="/api/upload",
+     *   security={{"bearerAuth":{}}},
+     *   tags={"Images"},
+     *   @OA\Response(response="200",
+     *     description="Upload Images",
+     *   )
+     * )
+     */
     public function upload(ImageUploadRequest $request)
     {
         $file = $request->file('image');
-
-        $url = $this->repository->upload($file);
+        $name = Str::random(10);
+        $url = \Storage::putFileAs('images', $file, $name . '.' . $file->extension());
 
         return [
             'url' => env('APP_URL') . '/' . $url

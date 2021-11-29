@@ -29,10 +29,7 @@ interface RoleRepositoryInterface
      * @param $id
      * @return object
      */
-    public function update(array $name, array $permissions, $id)
-    {
-
-    }
+    public function update(array $name, array $permissions, $id);
 
 
     /**

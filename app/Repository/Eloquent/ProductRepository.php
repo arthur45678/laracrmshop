@@ -2,6 +2,7 @@
 
 namespace App\Repository\Eloquent;
 
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\User;
 use App\Repository\ProductRepositoryInterface;
@@ -10,12 +11,14 @@ use Illuminate\Http\Request;
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {
 
+
     /**
      * @param Product $model
      */
     public function __construct(Product $model)
     {
         parent::__construct($model);
+
     }
 
     /**
@@ -35,6 +38,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return $this->model->create($data);
     }
+
+
+
 
     /**
      * @param $id

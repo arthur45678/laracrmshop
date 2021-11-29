@@ -31,11 +31,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('users/password', [AuthController::class, 'updatePassword']);
 
     Route::apiResource('users', UserController::class);
-    Route::apiResource('roles', RoleController::class);
+   // Route::apiResource('roles', RoleController::class);
     Route::apiResource('products', ProductController::class);
     Route::get('permissions', [PermissionController::class, 'index']);
     Route::post('upload', [ImageController::class, 'upload']);
-    Route::apiResource('orders', OrderController::class)->only('index', 'show');
+    Route::apiResource('orders', OrderController::class)->only('index', 'show','store');
+    Route::post('orders/storeOrderProduct', [OrderController::class, 'storeOrderProduct']);
 
     Route::get('export', [OrderController::class, 'export']);
     Route::get('chart', [OrderController::class, 'chart']);

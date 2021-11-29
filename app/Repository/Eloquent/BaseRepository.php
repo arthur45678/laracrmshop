@@ -65,17 +65,7 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->model->select($columns)->with($relations)->findOrFail($modelId)->append($appends);
     }
 
-    /**
-     * @param $file
-     * @return object
-     */
-    public function upload($file): object
-    {
-        $name = Str::random(10);
-        $url = Storage::putFileAs('images', $file, $name . '.' . $file->extension());
-        return $url;
 
-    }
 
 
 

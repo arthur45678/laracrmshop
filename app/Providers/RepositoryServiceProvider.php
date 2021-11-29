@@ -6,11 +6,13 @@ use App\Repository\BaseRepositoryInterface;
 use App\Repository\CheckoutRepositoryInterface;
 use App\Repository\Eloquent\BaseRepository;
 use App\Repository\Eloquent\CheckoutRepository;
+use App\Repository\Eloquent\ImageRepository;
 use App\Repository\Eloquent\OrdersRepository;
 use App\Repository\Eloquent\PermissionRepository;
 use App\Repository\Eloquent\ProductRepository;
 use App\Repository\Eloquent\RegisterRepository;
 use App\Repository\Eloquent\UserRepository;
+use App\Repository\ImageRepositoryInterface;
 use App\Repository\OrdersRepositoryInterface;
 use App\Repository\PermissionRepositoryInterface;
 use App\Repository\ProductRepositoryInterface;
@@ -36,6 +38,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(RoleRepositoryInterface::class, RoleRepositoryInterface::class);
         $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(ImageRepositoryInterface::class, ImageRepository::class);
     }
 
     /**
